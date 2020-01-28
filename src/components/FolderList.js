@@ -32,7 +32,7 @@ const FolderList = ({ files = [] }) => {
     <div>
       {files.map(file => {
         return (
-          <Wrapper>
+          <Wrapper key={file.id}>
             <div>
               <Icon className="icon" type="folder" />
             </div>

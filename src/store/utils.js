@@ -1,29 +1,30 @@
-const findFilesInPath = (fileList = {}, fileInfo) => {
+const findFilesInPath = (fileList = {}, id, fileInfo) => {
   let files = [],
     todos = [];
   if (!fileInfo) {
     Object.values(fileList).forEach(file => {
       if (!file.parent) {
-        if (file.type === "todos") todos.push(file);
-        else files.push(file);
+        if (file.type === "todos") todos.push({ ...file, id });
+        else files.push({ ...file, id });
       }
     });
   } else {
     fileInfo.children.forEach(fileId => {
       const file = fileList[fileId];
-      if (file.type === "todos") todos.push(file);
-      else files.push(file);
+      if (file.type === "todos") todos.push({ ...file, id });
+      else files.push({ ...file, id });
     });
   }
   return { files, todos };
 };
 
-const generatePath = (fileList, fileInfo) => {
+const generatePath = (fileList, id, fileInfo) => {
   const absolutePath = [];
+
   let currentFile = fileInfo;
 
-  while (currentFile.parent) {
-    absolutePath.push({ id: currentFile.id, name: currentFile.name });
+  while (currentFile) {
+    absolutePath.push({ id, name: currentFile.name });
     currentFile = fileList.parent;
   }
   const path = absolutePath.reverse();

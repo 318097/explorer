@@ -2,7 +2,7 @@ import * as constants from "./constants";
 import { findFilesInPath, generatePath } from "./utils";
 
 const initialState = {
-  path: "/",
+  path: [],
   pathContent: {
     files: [],
     todos: []
@@ -12,6 +12,18 @@ const initialState = {
       name: "test",
       type: "folder",
       parent: null,
+      children: ["child1"]
+    },
+    test2: {
+      name: "test2",
+      type: "folder",
+      parent: null,
+      children: []
+    },
+    child1: {
+      name: "child1",
+      type: "folder",
+      parent: "test",
       children: []
     }
   }
@@ -21,15 +33,16 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case constants.SET_PATH: {
       const fileHierarchy = state.rootStructure;
-      const fileInfo = fileHierarchy[action.payload];
+      const id = action.payload;
+      const fileInfo = fileHierarchy[id];
 
       let path, pathContent;
       if (action.payload === "/") {
-        path = "/";
-        pathContent = findFilesInPath(fileHierarchy);
+        path = [];
+        pathContent = findFilesInPath(fileHierarchy, id);
       } else if (fileInfo) {
-        path = generatePath(fileHierarchy, fileInfo);
-        pathContent = findFilesInPath(fileHierarchy, fileInfo);
+        path = generatePath(fileHierarchy, id, fileInfo);
+        pathContent = findFilesInPath(fileHierarchy, id, fileInfo);
       }
 
       return {
