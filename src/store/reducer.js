@@ -1,4 +1,16 @@
-const initialState = {};
+const initialState = {
+  currentPath: "/",
+  rootStructure: {
+    files: [
+      {
+        name: "test",
+        type: "folder",
+        content: {}
+      }
+    ],
+    todoList: []
+  }
+};
 
 const reducer = (store = initialState, action) => {
   switch (action.type) {
