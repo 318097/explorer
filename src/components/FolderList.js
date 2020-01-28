@@ -27,19 +27,23 @@ const Wrapper = styled.div`
   }
 `;
 
-const FolderList = ({ files = [] }) => {
+const FolderList = ({ history, navigate, files = [] }) => {
   return (
     <div>
-      {files.map(file => {
-        return (
-          <Wrapper key={file.id}>
-            <div>
-              <Icon className="icon" type="folder" />
-            </div>
-            <div className="filename">{file.name}</div>
-          </Wrapper>
-        );
-      })}
+      {files.length > 0 ? (
+        files.map(file => {
+          return (
+            <Wrapper onClick={navigate(file.id)} key={file.id}>
+              <div>
+                <Icon className="icon" type="folder" />
+              </div>
+              <div className="filename">{file.name}</div>
+            </Wrapper>
+          );
+        })
+      ) : (
+        <p className="empty-message">Empty folder</p>
+      )}
     </div>
   );
 };

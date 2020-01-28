@@ -8,17 +8,24 @@ import TodoList from "./TodoList";
 
 import { setPath } from "../store/actions";
 
-const Window = ({ path, pathContent, match, setPath }) => {
+const Window = ({ path, pathContent, match, setPath, history }) => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const path = match.params.id ? match.params.id : "/";
     setPath(path);
   }, [match]);
 
+  const navigate = id => () => {
+    history.push(id ? `/explorer/${id}` : "/explorer");
+  };
+
   return (
     <div>
-      <TitleBar path={path} />
-      <FolderList files={pathContent && pathContent.files} />
+      <TitleBar navigate={navigate} path={path} />
+      <FolderList
+        navigate={navigate}
+        files={pathContent && pathContent.files}
+      />
       <Divider />
       <TodoList todos={pathContent && pathContent.todos} />
     </div>

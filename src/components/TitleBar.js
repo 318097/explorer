@@ -1,14 +1,27 @@
 import React from "react";
 import { Breadcrumb, Icon } from "antd";
+import styled from "styled-components";
 
-const TitleBar = ({ path = [] }) => {
+const CustomLink = styled.span`
+  transition: 0.5s;
+  cursor: pointer;
+  &:hover {
+    color: #337cca;
+  }
+`;
+
+const TitleBar = ({ navigate, path = [] }) => {
   return (
     <Breadcrumb>
       <Breadcrumb.Item>
-        <Icon type="home" />
+        <CustomLink onClick={navigate()}>
+          <Icon type="home" />
+        </CustomLink>
       </Breadcrumb.Item>
       {path.map(item => (
-        <Breadcrumb.Item key={item.id}>{item.name}</Breadcrumb.Item>
+        <Breadcrumb.Item key={item.id}>
+          <CustomLink onClick={navigate(item.id)}>{item.name}</CustomLink>
+        </Breadcrumb.Item>
       ))}
     </Breadcrumb>
   );

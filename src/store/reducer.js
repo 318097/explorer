@@ -39,10 +39,10 @@ const reducer = (state = initialState, action) => {
       let path, pathContent;
       if (action.payload === "/") {
         path = [];
-        pathContent = findFilesInPath(fileHierarchy, id);
+        pathContent = findFilesInPath(fileHierarchy);
       } else if (fileInfo) {
-        path = generatePath(fileHierarchy, id, fileInfo);
-        pathContent = findFilesInPath(fileHierarchy, id, fileInfo);
+        path = generatePath(fileHierarchy, { ...fileInfo, id });
+        pathContent = findFilesInPath(fileHierarchy, fileInfo);
       }
 
       return {

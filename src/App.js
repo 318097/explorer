@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import "./App.css";
 import Window from "./components/Window";
@@ -10,8 +10,9 @@ const App = () => {
       <div className="app">
         <Header />
         <Switch>
-          <Route exact path="/:id" component={Window} />
-          <Route exact path="/" component={Window} />
+          <Route exact path="/explorer/:id" component={Window} />
+          <Route exact path="/explorer/" component={Window} />
+          <Route exact path="/" render={() => <Redirect to="/explorer" />} />
         </Switch>
       </div>
     </BrowserRouter>
