@@ -6,7 +6,7 @@ import Window from "./components/Window";
 import Header from "./components/layouts/Header";
 const App = () => {
   return (
-    <HashRouter>
+    <HashRouter basename="/">
       <div className="app">
         <Header />
         <section>
