@@ -6,11 +6,11 @@ import TitleBar from "./TitleBar";
 import FolderList from "./FolderList";
 import TodoList from "./TodoList";
 
-const Window = ({ path, rootStructure }) => {
+const Window = ({ currentPath, rootStructure }) => {
   const fileContent = rootStructure;
   return (
     <div>
-      <TitleBar path={path} />
+      <TitleBar path={currentPath} />
       <FolderList files={fileContent.files} />
       <Divider />
       <TodoList todos={fileContent.todos} />
@@ -18,7 +18,10 @@ const Window = ({ path, rootStructure }) => {
   );
 };
 
-const mapStateToProps = ({ path, rootStructure }) => ({ path, rootStructure });
+const mapStateToProps = ({ currentPath, rootStructure }) => ({
+  currentPath,
+  rootStructure
+});
 const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Window);

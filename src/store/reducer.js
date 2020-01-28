@@ -1,5 +1,5 @@
 const initialState = {
-  currentPath: "/",
+  currentPath: "/test",
   rootStructure: {
     files: [
       {
@@ -8,7 +8,7 @@ const initialState = {
         content: {}
       }
     ],
-    todoList: []
+    todos: []
   }
 };
 
