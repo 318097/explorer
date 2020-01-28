@@ -12,7 +12,7 @@ const initialState = {
       name: "test",
       type: "folder",
       parent: null,
-      children: ["child1"]
+      children: ["child1", "child2"]
     },
     test2: {
       name: "test2",
@@ -25,6 +25,18 @@ const initialState = {
       type: "folder",
       parent: "test",
       children: []
+    },
+    child2: {
+      name: "child2",
+      type: "todos",
+      parent: "test",
+      data: [
+        {
+          id: 1,
+          task: "finish",
+          status: "none"
+        }
+      ]
     }
   }
 };
