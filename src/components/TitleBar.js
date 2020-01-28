@@ -12,18 +12,20 @@ const CustomLink = styled.span`
 
 const TitleBar = ({ navigate, path = [] }) => {
   return (
-    <Breadcrumb>
-      <Breadcrumb.Item>
-        <CustomLink onClick={navigate()}>
-          <Icon type="home" />
-        </CustomLink>
-      </Breadcrumb.Item>
-      {path.map(item => (
-        <Breadcrumb.Item key={item.id}>
-          <CustomLink onClick={navigate(item.id)}>{item.name}</CustomLink>
+    <div className="title-bar">
+      <Breadcrumb>
+        <Breadcrumb.Item>
+          <CustomLink onClick={navigate()}>
+            <Icon type="home" /> <span>Home</span>
+          </CustomLink>
         </Breadcrumb.Item>
-      ))}
-    </Breadcrumb>
+        {path.map(item => (
+          <Breadcrumb.Item key={item.id}>
+            <CustomLink onClick={navigate(item.id)}>{item.name}</CustomLink>
+          </Breadcrumb.Item>
+        ))}
+      </Breadcrumb>
+    </div>
   );
 };
 

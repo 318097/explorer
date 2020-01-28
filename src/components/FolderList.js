@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 
 const FolderList = ({ history, navigate, files = [] }) => {
   return (
-    <div>
+    <div className="folder-list">
       {files.length > 0 ? (
         files.map(file => {
           return (

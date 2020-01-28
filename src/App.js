@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
-import "./App.css";
+import "./App.scss";
 import Window from "./components/Window";
 import Header from "./components/layouts/Header";
 const App = () => {
@@ -9,11 +9,13 @@ const App = () => {
     <BrowserRouter>
       <div className="app">
         <Header />
-        <Switch>
-          <Route exact path="/explorer/:id" component={Window} />
-          <Route exact path="/explorer/" component={Window} />
-          <Route exact path="/" render={() => <Redirect to="/explorer" />} />
-        </Switch>
+        <section>
+          <Switch>
+            <Route exact path="/explorer/:id" component={Window} />
+            <Route exact path="/explorer/" component={Window} />
+            <Route exact path="/" render={() => <Redirect to="/explorer" />} />
+          </Switch>
+        </section>
       </div>
     </BrowserRouter>
   );
