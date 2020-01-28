@@ -1,12 +1,12 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import "./App.scss";
 import Window from "./components/Window";
 import Header from "./components/layouts/Header";
 const App = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="app">
         <Header />
         <section>
@@ -17,7 +17,7 @@ const App = () => {
           </Switch>
         </section>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
