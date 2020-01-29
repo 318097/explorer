@@ -1,3 +1,5 @@
+import uuid from "uuid/v1";
+
 const findFilesInPath = (fileList = {}, fileInfo) => {
   let files = [],
     todos = [];
@@ -33,6 +35,20 @@ const generatePath = (fileList, fileInfo) => {
   return path;
 };
 
+const addItem = ({ parentId, itemType, name }, rootStructure) => {
+  const id = uuid();
+  if (parentId) rootStructure[parentId].children.push(id);
+
+  rootStructure[id] = {
+    name,
+    type: itemType,
+    parent: parentId,
+    children: itemType === "folder" ? [] : undefined,
+    status: itemType === "todos" ? "none" : undefined
+  };
+  return rootStructure;
+};
+
 const deleteItem = (fileId, rootStructure) => {
   const parentNodeId = rootStructure[fileId].parent;
   const parentNode = rootStructure[parentNodeId];
@@ -61,4 +77,4 @@ const deleteItem = (fileId, rootStructure) => {
   return rootStructure;
 };
 
-export { findFilesInPath, generatePath, deleteItem };
+export { findFilesInPath, generatePath, addItem, deleteItem };

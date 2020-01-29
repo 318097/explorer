@@ -5,14 +5,14 @@ import { findFilesInPath } from "../store/utils";
 
 import TitleBar from "./TitleBar";
 import FolderList from "./folder/FolderList";
-import TodoList from "./TodoList";
+import TodoList from "./todos/TodoList";
 
 import { setPath } from "../store/actions";
 
 const getPath = params => (params.id ? params.id : "/");
 
 const Window = ({ path, pathContent, match, setPath, history }) => {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const path = getPath(match.params);
@@ -31,7 +31,7 @@ const Window = ({ path, pathContent, match, setPath, history }) => {
         path={path}
       />
       <Divider style={{ margin: "12px 0" }} />
-      <TodoList todos={pathContent && pathContent.todos} />
+      <TodoList path={path} todos={pathContent && pathContent.todos} />
     </div>
   );
 };

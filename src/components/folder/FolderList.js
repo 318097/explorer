@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
-import styled from "styled-components";
 import { Icon, Input, Button } from "antd";
+import styled from "styled-components";
 import { connect } from "react-redux";
 
 import { addItem, updateItem, deleteItem } from "../../store/actions";
@@ -23,7 +23,6 @@ const CreateFolderWrapper = styled.div`
     align-items: center;
     background: lightgrey;
     padding: 5px 10px;
-
     input {
       width: 100px;
     }
