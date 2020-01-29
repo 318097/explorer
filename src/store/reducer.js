@@ -27,16 +27,10 @@ const initialState = {
       children: []
     },
     child2: {
-      name: "child2",
+      name: "task",
       type: "todos",
       parent: "test",
-      data: [
-        {
-          id: 1,
-          task: "finish",
-          status: "none"
-        }
-      ]
+      status: "none"
     }
   }
 };

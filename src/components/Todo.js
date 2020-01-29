@@ -15,7 +15,7 @@ const TodoWrapper = styled.div`
 const TodoList = ({ todo }) => {
   return (
     <TodoWrapper>
-      <span className="name">{todo.task}</span>
+      <span className="name">{todo.name}</span>
       <span className="status">{todo.status}</span>
     </TodoWrapper>
   );

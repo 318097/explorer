@@ -1,18 +1,18 @@
 const findFilesInPath = (fileList = {}, fileInfo) => {
   let files = [],
-    todos;
+    todos = [];
   if (!fileInfo) {
     Object.keys(fileList).forEach(id => {
       const file = fileList[id];
       if (!file.parent) {
-        if (file.type === "todos") todos = { ...file, id };
+        if (file.type === "todos") todos.push({ ...file, id });
         else files.push({ ...file, id });
       }
     });
   } else {
     fileInfo.children.forEach(fileId => {
       const file = fileList[fileId];
-      if (file.type === "todos") todos = { ...file, id: fileId };
+      if (file.type === "todos") todos.push({ ...file, id: fileId });
       else files.push({ ...file, id: fileId });
     });
   }

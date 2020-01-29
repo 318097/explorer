@@ -1,11 +1,11 @@
 import React from "react";
 import Todo from "./Todo";
 
-const TodoList = ({ todos: { name, data = [] } = {} }) => {
+const TodoList = ({ todos = [] }) => {
   return (
     <div>
-      {data.length > 0
-        ? data.map(todo => <Todo key={todo.id} todo={todo} />)
+      {todos.length > 0
+        ? todos.map(todo => <Todo key={todo.id} todo={todo} />)
         : null}
     </div>
   );

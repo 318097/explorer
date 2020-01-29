@@ -37,10 +37,11 @@ const Window = ({ path, pathContent, match, setPath, history }) => {
 const mapStateToProps = ({ rootStructure, path }, ownProps) => {
   const id = getPath(ownProps.match.params);
   const fileInfo = rootStructure[id];
+  const pathContent = findFilesInPath(rootStructure, fileInfo);
 
   return {
-    path: path,
-    pathContent: findFilesInPath(rootStructure, fileInfo)
+    path,
+    pathContent
   };
 };
 const mapDispatchToProps = {

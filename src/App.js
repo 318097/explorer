@@ -2,8 +2,10 @@ import React from "react";
 import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import "./App.scss";
+
 import Window from "./components/Window";
 import Header from "./components/layouts/Header";
+
 const App = () => {
   return (
     <HashRouter basename="/">
