@@ -1,7 +1,9 @@
 import React, { useState, Fragment } from "react";
 import styled from "styled-components";
 import { Icon, Input, Button } from "antd";
+import { connect } from "react-redux";
 
+import { addItem, updateItem, deleteItem } from "../../store/actions";
 import Folder from "./Folder";
 
 const CreateFolderWrapper = styled.div`
@@ -31,8 +33,8 @@ const CreateFolderWrapper = styled.div`
 const FolderList = ({
   navigate,
   files = [],
-  addItem,
   path,
+  addItem,
   updateItem,
   deleteItem
 }) => {
@@ -100,4 +102,10 @@ const FolderList = ({
   );
 };
 
-export default FolderList;
+const mapDispatchToProps = {
+  addItem,
+  updateItem,
+  deleteItem
+};
+
+export default connect(null, mapDispatchToProps)(FolderList);
