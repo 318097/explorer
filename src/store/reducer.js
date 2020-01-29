@@ -1,12 +1,8 @@
 import * as constants from "./constants";
-import { findFilesInPath, generatePath, addItem, deleteItem } from "./utils";
+import { generatePath, addItem, deleteItem } from "./utils";
 
 const initialState = {
   path: [],
-  pathContent: {
-    files: [],
-    todos: []
-  },
   rootStructure: {
     test: {
       name: "test",
@@ -38,23 +34,17 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case constants.SET_PATH: {
-      const fileHierarchy = state.rootStructure;
-      const id = action.payload;
-      const fileInfo = fileHierarchy[id];
+      const fileId = action.payload;
+      const { rootStructure } = state;
+      const node = rootStructure[fileId];
 
-      let path, pathContent;
-      if (action.payload === "/") {
-        path = [];
-        // pathContent = findFilesInPath(fileHierarchy);
-      } else if (fileInfo) {
-        path = generatePath(fileHierarchy, { ...fileInfo, id });
-        // pathContent = findFilesInPath(fileHierarchy, fileInfo);
-      }
+      let path;
+      if (action.payload === "/") path = [];
+      else if (node) path = generatePath(rootStructure, { ...node, fileId });
 
       return {
         ...state,
-        path,
-        pathContent
+        path
       };
     }
     case constants.ADD_ITEM: {

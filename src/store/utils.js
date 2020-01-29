@@ -42,7 +42,7 @@ const addItem = ({ parentId, itemType, name }, rootStructure) => {
   rootStructure[id] = {
     name,
     type: itemType,
-    parent: parentId,
+    parent: parentId || null,
     children: itemType === "folder" ? [] : undefined,
     status: itemType === "todos" ? "none" : undefined
   };

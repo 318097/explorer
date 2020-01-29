@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Divider } from "antd";
 import { connect } from "react-redux";
 import { findFilesInPath } from "../store/utils";
@@ -25,21 +25,28 @@ const Window = ({ path, pathContent, match, setPath, history }) => {
   return (
     <div>
       <TitleBar navigate={navigate} path={path} />
-      <FolderList
-        navigate={navigate}
-        files={pathContent && pathContent.files}
-        path={path}
-      />
-      <Divider style={{ margin: "12px 0" }} />
-      <TodoList path={path} todos={pathContent && pathContent.todos} />
+      {pathContent ? (
+        <Fragment>
+          <FolderList
+            navigate={navigate}
+            files={pathContent.files}
+            path={path}
+          />
+          <Divider style={{ margin: "12px 0" }} />
+          <TodoList path={path} todos={pathContent.todos} />
+        </Fragment>
+      ) : (
+        <p className="empty-message">Invalid path</p>
+      )}
     </div>
   );
 };
 
 const mapStateToProps = ({ rootStructure, path }, ownProps) => {
   const fileId = getPath(ownProps.match.params);
-  const fileInfo = rootStructure[fileId];
-  const pathContent = findFilesInPath(rootStructure, fileInfo);
+  const file = rootStructure[fileId];
+  const pathContent =
+    fileId !== "/" && !file ? null : findFilesInPath(rootStructure, file);
 
   return {
     path,
