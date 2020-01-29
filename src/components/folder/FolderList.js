@@ -21,7 +21,8 @@ const CreateFolderWrapper = styled.div`
   .container {
     display: flex;
     align-items: center;
-    background: lightgrey;
+    background: gainsboro;
+    border-radius: 2px;
     padding: 5px 10px;
     input {
       width: 100px;
