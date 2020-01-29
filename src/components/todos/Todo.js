@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Icon, Divider } from "antd";
 
@@ -6,8 +6,8 @@ const TodoWrapper = styled.div`
   display: flex;
   flex-direction: row;
   border: 1px solid lightgrey;
-  padding: 3px 10px;
   margin: 3px;
+  padding: 0;
   position: relative;
   &:before {
     content: "";
@@ -20,14 +20,11 @@ const TodoWrapper = styled.div`
     background: ${({ status }) => (status === "done" ? "green" : "lightgrey")};
   }
   .name {
+    padding: 3px 10px;
     flex: 1 1 auto;
   }
   .status {
-    position: absolute;
-    height: 100%;
-    top: 0;
     padding: 0 1px;
-    right: 0;
     background: #ececec;
     & > * {
       margin: 2px;
@@ -41,23 +38,61 @@ const TodoWrapper = styled.div`
       }
     }
   }
+  .edit-todo-input {
+    padding-left: 5px;
+    flex: 1 1 auto;
+    z-index: 1;
+    margin: 0;
+    background: #f1f1f1;
+    border: none;
+    font-size: 0.8rem;
+  }
 `;
 
 const TodoList = ({ todo: { name, status, id }, updateItem, deleteItem }) => {
-  const handleUpdate = () =>
+  const [editTodoStatus, setEditTodoStatus] = useState(false);
+  const [title, setTitle] = useState("");
+
+  const updateTodoStatus = () =>
     updateItem({ fileId: id, key: "status", value: "done" });
+
+  const updateTodoName = ({ which: keyCode }) => {
+    if (keyCode === 13) {
+      updateItem({ fileId: id, key: "name", value: title });
+      setTitle("");
+      setEditTodoStatus(false);
+    } else if (keyCode === 27) {
+      setTitle("");
+      setEditTodoStatus(false);
+    }
+  };
 
   const handleDelete = () => deleteItem(id);
 
   return (
     <TodoWrapper status={status}>
-      <span className="name">{name}</span>
-      <span className="status">
-        <Icon type="edit" onClick={handleUpdate} />
+      {editTodoStatus ? (
+        <input
+          className="edit-todo-input"
+          type="text"
+          autoFocus
+          value={title}
+          onClick={event => event.stopPropagation()}
+          onChange={({ target: { value } }) => setTitle(value)}
+          onKeyUp={updateTodoName}
+        />
+      ) : (
+        <span className="name">{name}</span>
+      )}
+      <div className="status">
+        <Icon
+          type="edit"
+          onClick={() => (setEditTodoStatus(prop => !prop), setTitle(name))}
+        />
         <Icon type="delete" onClick={handleDelete} />
         <Divider type="vertical" />
-        <Icon type="check" onClick={handleUpdate} />
-      </span>
+        <Icon type="check" onClick={updateTodoStatus} />
+      </div>
     </TodoWrapper>
   );
 };
