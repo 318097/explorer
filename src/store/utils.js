@@ -50,9 +50,10 @@ const addItem = ({ parentId, itemType, name }, rootStructure) => {
 };
 
 const deleteItem = (fileId, rootStructure) => {
-  const parentNodeId = rootStructure[fileId].parent;
-  const parentNode = rootStructure[parentNodeId];
+  const currentNode = rootStructure[fileId];
 
+  const parentNodeId = currentNode.parent;
+  const parentNode = rootStructure[parentNodeId];
   if (parentNodeId) {
     // if not root level
     parentNode.children = parentNode.children.filter(id => id !== fileId);
@@ -60,18 +61,19 @@ const deleteItem = (fileId, rootStructure) => {
   }
 
   const nodesToDelete = [fileId];
-  const currentNode = rootStructure[fileId];
 
-  const recursiveSearch = (fileIds = []) => {
-    nodesToDelete.push(...fileIds);
-    fileIds.forEach(fileId => {
-      const file = rootStructure[fileId];
-      if (file && file.children && file.children.length > 0) {
-        recursiveSearch(file.children);
-      }
-    });
-  };
-  recursiveSearch(currentNode.children);
+  if (currentNode.type === "folder") {
+    const recursiveSearch = (fileIds = []) => {
+      nodesToDelete.push(...fileIds);
+      fileIds.forEach(fileId => {
+        const file = rootStructure[fileId];
+        if (file && file.children && file.children.length > 0) {
+          recursiveSearch(file.children);
+        }
+      });
+    };
+    recursiveSearch(currentNode.children);
+  }
 
   nodesToDelete.forEach(id => delete rootStructure[id]);
   return rootStructure;

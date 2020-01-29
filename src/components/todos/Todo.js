@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Icon, Divider } from "antd";
+import { Icon, Divider, Popconfirm } from "antd";
 
 const TodoWrapper = styled.div`
   display: flex;
@@ -89,7 +89,15 @@ const TodoList = ({ todo: { name, status, id }, updateItem, deleteItem }) => {
           type="edit"
           onClick={() => (setEditTodoStatus(prop => !prop), setTitle(name))}
         />
-        <Icon type="delete" onClick={handleDelete} />
+        <Popconfirm
+          title="Delete?"
+          onConfirm={handleDelete}
+          placement="right"
+          okText="Yes"
+          cancelText="No"
+        >
+          <Icon type="delete" />
+        </Popconfirm>
         <Divider type="vertical" />
         <Icon type="check" onClick={updateTodoStatus} />
       </div>
