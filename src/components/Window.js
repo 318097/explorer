@@ -7,11 +7,11 @@ import TitleBar from "./TitleBar";
 import FolderList from "./FolderList";
 import TodoList from "./TodoList";
 
-import { setPath } from "../store/actions";
+import { setPath, addItem } from "../store/actions";
 
 const getPath = params => (params.id ? params.id : "/");
 
-const Window = ({ path, pathContent, match, setPath, history }) => {
+const Window = ({ path, pathContent, match, setPath, history, addItem }) => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const path = getPath(match.params);
@@ -27,8 +27,10 @@ const Window = ({ path, pathContent, match, setPath, history }) => {
       <FolderList
         navigate={navigate}
         files={pathContent && pathContent.files}
+        addItem={addItem}
+        path={path}
       />
-      <Divider />
+      <Divider style={{ margin: "12px 0" }} />
       <TodoList todos={pathContent && pathContent.todos} />
     </div>
   );
@@ -45,7 +47,8 @@ const mapStateToProps = ({ rootStructure, path }, ownProps) => {
   };
 };
 const mapDispatchToProps = {
-  setPath
+  setPath,
+  addItem
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Window);

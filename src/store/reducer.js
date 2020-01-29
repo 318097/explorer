@@ -1,3 +1,5 @@
+import uuid from "uuid/v1";
+
 import * as constants from "./constants";
 import { findFilesInPath, generatePath } from "./utils";
 
@@ -55,6 +57,25 @@ const reducer = (state = initialState, action) => {
         ...state,
         path,
         pathContent
+      };
+    }
+    case constants.ADD_ITEM: {
+      const id = uuid();
+      const { parentId, itemType, name } = action.payload;
+
+      const updatedRootStructure = { ...state.rootStructure };
+
+      updatedRootStructure[parentId].children.push(id);
+      updatedRootStructure[id] = {
+        name,
+        type: itemType,
+        parent: parentId,
+        status: itemType === "todos" ? "none" : undefined
+      };
+
+      return {
+        ...state,
+        rootStructure: updatedRootStructure
       };
     }
     default:
