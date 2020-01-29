@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Icon } from "antd";
 
 import Dropdown from "./Dropdown";
+
+const adjustNamePosition = css`
+  position: relative;
+  bottom: 5px;
+  font-size: 0.7rem;
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,17 +27,18 @@ const Wrapper = styled.div`
   }
   .icon-wrapper {
     text-align: center;
-    flex: 1 1 auto;
     .icon {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
     }
   }
   .filename {
+    flex: 1 0 auto;
     padding: 0 2px;
     text-align: center;
-    position: relative;
-    word-break: break-all;
+    word-break: break-word;
     font-size: 0.8rem;
+    line-height: 10px;
+    ${({ fileName }) => fileName.length > 10 && adjustNamePosition};
   }
   .rename-folder-input {
     padding: 2px;
@@ -44,7 +51,7 @@ const Wrapper = styled.div`
 `;
 
 const parseFileName = name =>
-  name.length > 8 ? name.slice(0, 8) + ".." : name;
+  name.length > 18 ? name.slice(0, 18) + ".." : name;
 
 const Folder = ({ file, navigate, updateItem, deleteItem }) => {
   const [renameFolderStatus, setRenameFolderStatus] = useState(false);
@@ -69,7 +76,7 @@ const Folder = ({ file, navigate, updateItem, deleteItem }) => {
   const handleDelete = () => deleteItem(file.id);
 
   return (
-    <Wrapper onClick={navigate(file.id)}>
+    <Wrapper fileName={file.name} onClick={navigate(file.id)}>
       <div className="icon-wrapper">
         <Icon className="icon" type="folder" />
       </div>

@@ -94,7 +94,10 @@ const TodoList = ({ todo: { name, status, id }, updateItem, deleteItem }) => {
       <div className="status">
         <Icon
           type="edit"
-          onClick={() => (setEditTodoStatus(prop => !prop), setTitle(name))}
+          onClick={() => {
+            setEditTodoStatus(prop => !prop);
+            setTitle(name);
+          }}
         />
         <Popconfirm
           title="Delete?"

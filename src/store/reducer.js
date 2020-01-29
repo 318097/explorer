@@ -4,28 +4,28 @@ import { generatePath, addItem, deleteItem } from "./utils";
 const initialState = {
   path: [],
   rootStructure: {
-    test: {
-      name: "test",
+    id1: {
+      name: "Folder 1",
       type: "folder",
       parent: null,
-      children: ["child1", "child2"]
+      children: ["id3", "id4"]
     },
-    test2: {
-      name: "test2",
+    id2: {
+      name: "Folder 2",
       type: "folder",
       parent: null,
       children: []
     },
-    child1: {
-      name: "child1",
+    id3: {
+      name: "Sub Folder 1",
       type: "folder",
-      parent: "test",
+      parent: "id1",
       children: []
     },
-    child2: {
-      name: "task",
+    id4: {
+      name: "Todo 1",
       type: "todos",
-      parent: "test",
+      parent: "id1",
       status: "none"
     }
   }
@@ -40,7 +40,8 @@ const reducer = (state = initialState, action) => {
 
       let path;
       if (action.payload === "/") path = [];
-      else if (node) path = generatePath(rootStructure, { ...node, fileId });
+      else if (node)
+        path = generatePath(rootStructure, { ...node, id: fileId });
 
       return {
         ...state,

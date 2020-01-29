@@ -29,7 +29,7 @@ const generatePath = (fileList, fileInfo) => {
     absolutePath.push({ name: currentFile.name, id: currentFile.id });
     const id = currentFile.parent;
     currentFile = fileList[id];
-    if (currentFile) currentFile.id = id;
+    if (currentFile) currentFile["id"] = id;
   }
   const path = absolutePath.reverse();
   return path;
