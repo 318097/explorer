@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { findFilesInPath } from "../store/utils";
 
 import TitleBar from "./TitleBar";
-import FolderList from "./FolderList";
+import FolderList from "./folder/FolderList";
 import TodoList from "./TodoList";
 
 import { setPath, addItem } from "../store/actions";

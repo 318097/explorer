@@ -2,33 +2,7 @@ import React, { useState, Fragment } from "react";
 import styled from "styled-components";
 import { Icon, Input, Button } from "antd";
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ccc;
-  height: 60px;
-  width: 60px;
-  padding: 1px 0;
-  display: inline-block;
-  margin: 3px;
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.5s;
-  &:hover {
-    background: lightgrey;
-  }
-  .icon {
-    font-size: 2.2rem;
-  }
-  .filename {
-    margin: 2px;
-    position: relative;
-    bottom: 3px;
-    word-break: break-all;
-    font-size: 0.8rem;
-    line-height: 10px;
-  }
-`;
+import Folder from "./Folder";
 
 const CreateFolderWrapper = styled.div`
   display: flex;
@@ -54,9 +28,6 @@ const CreateFolderWrapper = styled.div`
   }
 `;
 
-const parseFileName = name =>
-  name.length > 8 ? name.slice(0, 8) + ".." : name;
-
 const FolderList = ({ navigate, files = [], addItem, path }) => {
   const [inputBoxVisibility, setInputBoxVisibility] = useState(false);
   const [folderName, setFolderName] = useState("");
@@ -76,16 +47,9 @@ const FolderList = ({ navigate, files = [], addItem, path }) => {
     <Fragment>
       <div className="folder-list">
         {files.length > 0 ? (
-          files.map(file => {
-            return (
-              <Wrapper onClick={navigate(file.id)} key={file.id}>
-                <div>
-                  <Icon className="icon" type="folder" />
-                </div>
-                <div className="filename">{parseFileName(file.name)}</div>
-              </Wrapper>
-            );
-          })
+          files.map(file => (
+            <Folder key={file.id} navigate={navigate} file={file} />
+          ))
         ) : (
           <p className="empty-message">Empty folder</p>
         )}
