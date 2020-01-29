@@ -38,7 +38,14 @@ const TodoList = ({ todos = [], path, addItem, updateItem, deleteItem }) => {
   return (
     <div className="todo-list">
       {todos.length > 0
-        ? todos.map(todo => <Todo key={todo.id} todo={todo} />)
+        ? todos.map(todo => (
+            <Todo
+              updateItem={updateItem}
+              deleteItem={deleteItem}
+              key={todo.id}
+              todo={todo}
+            />
+          ))
         : null}
       <CreateTodoWrapper>
         {inputBoxVisibility ? (
