@@ -57,6 +57,7 @@ const FolderList = ({
           files.map(file => (
             <Folder
               updateItem={updateItem}
+              deleteItem={deleteItem}
               key={file.id}
               navigate={navigate}
               file={file}

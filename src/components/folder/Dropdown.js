@@ -26,7 +26,7 @@ const DropdownContent = styled.div`
   }
 `;
 
-const Dropdown = ({ renameFolder, deleteItem }) => {
+const Dropdown = ({ renameFolder, handleDelete }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleRename = () => {
@@ -34,8 +34,8 @@ const Dropdown = ({ renameFolder, deleteItem }) => {
     renameFolder();
   };
 
-  const handleDelete = () => {
-    deleteItem();
+  const handleDeleteConfirm = () => {
+    handleDelete();
     setShowDropdown(false);
   };
 
@@ -52,7 +52,7 @@ const Dropdown = ({ renameFolder, deleteItem }) => {
           <Icon onClick={handleRename} type="edit" />
           <Popconfirm
             title="Delete?"
-            onConfirm={handleDelete}
+            onConfirm={handleDeleteConfirm}
             placement="right"
             okText="Yes"
             cancelText="No"

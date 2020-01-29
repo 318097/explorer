@@ -60,8 +60,13 @@ const Folder = ({ file, navigate, updateItem, deleteItem }) => {
       updateItem({ fileId: file.id, key: "name", value: name });
       setName("");
       setRenameFolderStatus(false);
+    } else if (keyCode === 27) {
+      setName("");
+      setRenameFolderStatus(false);
     }
   };
+
+  const handleDelete = () => deleteItem(file.id);
 
   return (
     <Wrapper onClick={navigate(file.id)}>
@@ -76,12 +81,12 @@ const Folder = ({ file, navigate, updateItem, deleteItem }) => {
           autoFocus
           onClick={event => event.stopPropagation()}
           onChange={({ target: { value } }) => setName(value)}
-          onKeyPress={handleRename}
+          onKeyUp={handleRename}
         />
       ) : (
         <div className="filename">{parseFileName(file.name)}</div>
       )}
-      <Dropdown renameFolder={renameFolder} />
+      <Dropdown handleDelete={handleDelete} renameFolder={renameFolder} />
     </Wrapper>
   );
 };

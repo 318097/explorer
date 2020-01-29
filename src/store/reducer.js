@@ -1,7 +1,7 @@
 import uuid from "uuid/v1";
 
 import * as constants from "./constants";
-import { findFilesInPath, generatePath } from "./utils";
+import { findFilesInPath, generatePath, deleteItem } from "./utils";
 
 const initialState = {
   path: [],
@@ -83,6 +83,17 @@ const reducer = (state = initialState, action) => {
       const { fileId, key, value } = action.payload;
       const updatedRootStructure = { ...state.rootStructure };
       updatedRootStructure[fileId][key] = value;
+
+      return {
+        ...state,
+        rootStructure: updatedRootStructure
+      };
+    }
+    case constants.DELETE_ITEM: {
+      const fileId = action.payload;
+      const updatedRootStructure = deleteItem(fileId, {
+        ...state.rootStructure
+      });
 
       return {
         ...state,
