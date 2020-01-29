@@ -70,6 +70,7 @@ const reducer = (state = initialState, action) => {
         name,
         type: itemType,
         parent: parentId,
+        children: itemType === "folder" ? [] : undefined,
         status: itemType === "todos" ? "none" : undefined
       };
 

@@ -6,11 +6,11 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid #ccc;
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   padding: 1px 0;
   display: inline-block;
-  margin: 5px;
+  margin: 3px;
   cursor: pointer;
   text-align: center;
   transition: all 0.5s;
@@ -18,13 +18,15 @@ const Wrapper = styled.div`
     background: lightgrey;
   }
   .icon {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
   }
   .filename {
+    margin: 2px;
     position: relative;
     bottom: 3px;
-    font-size: 0.7rem;
-    line-height: 9px;
+    word-break: break-all;
+    font-size: 0.8rem;
+    line-height: 10px;
   }
 `;
 
@@ -35,20 +37,25 @@ const CreateFolderWrapper = styled.div`
   right: 0;
   align-items: center;
   justify-content: flex-end;
+  button,
+  input {
+    font-size: 0.7rem;
+    margin: 0 2px;
+  }
   .container {
     display: flex;
     align-items: center;
     background: lightgrey;
     padding: 5px 10px;
-    & > * {
-      margin: 0 2px;
-    }
+
     input {
       width: 100px;
-      font-size: 0.8rem;
     }
   }
 `;
+
+const parseFileName = name =>
+  name.length > 8 ? name.slice(0, 8) + ".." : name;
 
 const FolderList = ({ navigate, files = [], addItem, path }) => {
   const [inputBoxVisibility, setInputBoxVisibility] = useState(false);
@@ -75,7 +82,7 @@ const FolderList = ({ navigate, files = [], addItem, path }) => {
                 <div>
                   <Icon className="icon" type="folder" />
                 </div>
-                <div className="filename">{file.name}</div>
+                <div className="filename">{parseFileName(file.name)}</div>
               </Wrapper>
             );
           })

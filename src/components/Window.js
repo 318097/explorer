@@ -37,8 +37,8 @@ const Window = ({ path, pathContent, match, setPath, history, addItem }) => {
 };
 
 const mapStateToProps = ({ rootStructure, path }, ownProps) => {
-  const id = getPath(ownProps.match.params);
-  const fileInfo = rootStructure[id];
+  const fileId = getPath(ownProps.match.params);
+  const fileInfo = rootStructure[fileId];
   const pathContent = findFilesInPath(rootStructure, fileInfo);
 
   return {
