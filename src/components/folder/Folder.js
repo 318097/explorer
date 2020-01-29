@@ -36,7 +36,7 @@ const Wrapper = styled.div`
   .rename-folder-input {
     padding: 2px;
     margin: 0;
-    background: #f1f1f1;
+    background: #ececec;
     border: none;
     width: 100%;
     font-size: 0.8rem;

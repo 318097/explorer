@@ -1,6 +1,12 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Icon, Divider, Popconfirm } from "antd";
+
+const todoSuccess = css`
+  text-decoration: line-through;
+  color: grey;
+  font-style: italic;
+`;
 
 const TodoWrapper = styled.div`
   display: flex;
@@ -22,6 +28,7 @@ const TodoWrapper = styled.div`
   .name {
     padding: 3px 10px;
     flex: 1 1 auto;
+    ${({ status }) => status === "done" && todoSuccess};
   }
   .status {
     padding: 0 1px;
@@ -92,7 +99,7 @@ const TodoList = ({ todo: { name, status, id }, updateItem, deleteItem }) => {
         <Popconfirm
           title="Delete?"
           onConfirm={handleDelete}
-          placement="right"
+          placement="top"
           okText="Yes"
           cancelText="No"
         >
