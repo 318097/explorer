@@ -26,12 +26,12 @@ const DropdownContent = styled.div`
   }
 `;
 
-const Dropdown = ({ updateItem, deleteItem }) => {
+const Dropdown = ({ renameFolder, deleteItem }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleRename = () => {
-    updateItem();
     setShowDropdown(false);
+    renameFolder();
   };
 
   const handleDelete = () => {

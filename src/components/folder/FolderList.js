@@ -28,7 +28,14 @@ const CreateFolderWrapper = styled.div`
   }
 `;
 
-const FolderList = ({ navigate, files = [], addItem, path }) => {
+const FolderList = ({
+  navigate,
+  files = [],
+  addItem,
+  path,
+  updateItem,
+  deleteItem
+}) => {
   const [inputBoxVisibility, setInputBoxVisibility] = useState(false);
   const [folderName, setFolderName] = useState("");
 
@@ -48,7 +55,12 @@ const FolderList = ({ navigate, files = [], addItem, path }) => {
       <div className="folder-list">
         {files.length > 0 ? (
           files.map(file => (
-            <Folder key={file.id} navigate={navigate} file={file} />
+            <Folder
+              updateItem={updateItem}
+              key={file.id}
+              navigate={navigate}
+              file={file}
+            />
           ))
         ) : (
           <p className="empty-message">Empty folder</p>

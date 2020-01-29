@@ -79,6 +79,16 @@ const reducer = (state = initialState, action) => {
         rootStructure: updatedRootStructure
       };
     }
+    case constants.UPDATE_ITEM: {
+      const { fileId, key, value } = action.payload;
+      const updatedRootStructure = { ...state.rootStructure };
+      updatedRootStructure[fileId][key] = value;
+
+      return {
+        ...state,
+        rootStructure: updatedRootStructure
+      };
+    }
     default:
       return state;
   }

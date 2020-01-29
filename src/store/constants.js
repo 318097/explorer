@@ -1,4 +1,6 @@
 const SET_PATH = "SET_PATH";
 const ADD_ITEM = "ADD_ITEM";
+const UPDATE_ITEM = "UPDATE_ITEM";
+const DELETE_ITEM = "DELETE_ITEM";
 
-export { SET_PATH, ADD_ITEM };
+export { SET_PATH, ADD_ITEM, UPDATE_ITEM, DELETE_ITEM };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Icon } from "antd";
 
@@ -33,19 +33,55 @@ const Wrapper = styled.div`
     word-break: break-all;
     font-size: 0.8rem;
   }
+  .rename-folder-input {
+    padding: 2px;
+    margin: 0;
+    background: #f1f1f1;
+    border: none;
+    width: 100%;
+    font-size: 0.8rem;
+  }
 `;
 
 const parseFileName = name =>
   name.length > 8 ? name.slice(0, 8) + ".." : name;
 
-const Folder = ({ file, navigate }) => {
+const Folder = ({ file, navigate, updateItem, deleteItem }) => {
+  const [renameFolderStatus, setRenameFolderStatus] = useState(false);
+  const [name, setName] = useState("");
+
+  const renameFolder = () => {
+    setName(file.name);
+    setRenameFolderStatus(true);
+  };
+
+  const handleRename = ({ which: keyCode }) => {
+    if (keyCode === 13) {
+      updateItem({ fileId: file.id, key: "name", value: name });
+      setName("");
+      setRenameFolderStatus(false);
+    }
+  };
+
   return (
     <Wrapper onClick={navigate(file.id)}>
       <div className="icon-wrapper">
         <Icon className="icon" type="folder" />
       </div>
-      <div className="filename">{parseFileName(file.name)}</div>
-      <Dropdown />
+      {renameFolderStatus ? (
+        <input
+          className="rename-folder-input"
+          type="text"
+          value={name}
+          autoFocus
+          onClick={event => event.stopPropagation()}
+          onChange={({ target: { value } }) => setName(value)}
+          onKeyPress={handleRename}
+        />
+      ) : (
+        <div className="filename">{parseFileName(file.name)}</div>
+      )}
+      <Dropdown renameFolder={renameFolder} />
     </Wrapper>
   );
 };
