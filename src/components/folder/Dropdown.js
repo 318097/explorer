@@ -12,15 +12,22 @@ const DropdownIcon = styled(Icon)`
 
 const DropdownContent = styled.div`
     display: flex;
-    width: 100%;
+    width: 80%;
     flex-direction: column;
-    padding: 5px;
+    padding: 2px;
+    font-size: .7rem;
     position: absolute;
-    background: #4e4c4c;
-    right: 0;
-    top: 0;
+    background: white;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    right: 2px;
+    top: 15px;
     & > * {
-      margin: 2px;
+      margin: 2px 1px;
+      padding: 1px;
+      &:hover{
+        background: lightgrey;
+      }
     }
   }
 `;
@@ -48,7 +55,10 @@ const Dropdown = ({ renameFolder, handleDelete }) => {
       <DropdownIcon type="more" onClick={handleDropdownClick} />
       {showDropdown && (
         <DropdownContent onClick={event => event.stopPropagation()}>
-          <Icon onClick={handleRename} type="edit" />
+          <span>
+            <Icon onClick={handleRename} type="edit" />
+            Rename
+          </span>
           <Popconfirm
             title="Delete?"
             onConfirm={handleDeleteConfirm}
@@ -56,7 +66,10 @@ const Dropdown = ({ renameFolder, handleDelete }) => {
             okText="Yes"
             cancelText="No"
           >
-            <Icon type="delete" />
+            <span>
+              <Icon type="delete" />
+              Delete
+            </span>
           </Popconfirm>
         </DropdownContent>
       )}
