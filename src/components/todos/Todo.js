@@ -109,7 +109,7 @@ const TodoList = ({ todo: { name, status, id }, updateItem, deleteItem }) => {
         >
           <Icon type="delete" />
         </Popconfirm>
-        <Divider type="vertical" />
+        <Divider style={{ background: "grey" }} type="vertical" />
         <Icon type="check" onClick={updateTodoStatus} />
       </div>
     </TodoWrapper>

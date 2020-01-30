@@ -32,7 +32,12 @@ const Window = ({ path, pathContent, match, setPath, history }) => {
             files={pathContent.files}
             path={path}
           />
-          <Divider style={{ margin: "12px 0" }} />
+          <Divider
+            style={{ margin: "12px 0", color: "grey", fontSize: ".8rem" }}
+            orientation="left"
+          >
+            {`${pathContent.files.length} Folder(s), ${pathContent.todos.length} Todo(s)`}
+          </Divider>
           <TodoList path={path} todos={pathContent.todos} />
         </Fragment>
       ) : (

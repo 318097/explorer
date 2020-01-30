@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Icon, Input, Button } from "antd";
+import { Icon, Input } from "antd";
 import { connect } from "react-redux";
 
+import CustomButton from "../CustomButton";
 import { addItem, updateItem, deleteItem } from "../../store/actions";
 import Todo from "./Todo";
 
 const CreateTodoWrapper = styled.div`
   text-align: center;
   margin: 10px auto;
-  button,
   input {
     font-size: 0.7rem;
     margin: 2px;
@@ -60,21 +60,16 @@ const TodoList = ({ todos = [], path, addItem, updateItem, deleteItem }) => {
               onChange={({ target: { value } }) => setName(value)}
               onPressEnter={createNewTodo}
             />
-            <Button size="small" onClick={() => setInputBoxVisibility(false)}>
+            <CustomButton onClick={() => setInputBoxVisibility(false)}>
               Cancel
-            </Button>
-            <Button size="small" onClick={createNewTodo}>
-              Create
-            </Button>
+            </CustomButton>
+            <CustomButton onClick={createNewTodo}>Create</CustomButton>
           </div>
         ) : (
-          <Button
-            size="small"
-            onClick={() => setInputBoxVisibility(prev => !prev)}
-          >
+          <CustomButton onClick={() => setInputBoxVisibility(prev => !prev)}>
             New Todo
             <Icon type="plus" />
-          </Button>
+          </CustomButton>
         )}
       </CreateTodoWrapper>
     </div>

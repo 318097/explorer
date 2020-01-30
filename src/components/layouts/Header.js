@@ -12,7 +12,7 @@ const StyledHeader = styled.header`
 
 const Header = () => (
   <StyledHeader>
-    <span class="underline">Explorer</span>
+    <span className="underline">Explorer</span>
   </StyledHeader>
 );
 

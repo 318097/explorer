@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { Icon, Input, Button } from "antd";
+import { Icon, Input } from "antd";
 import styled from "styled-components";
 
+import { getNodeId } from "../../utils";
+import CustomButton from "../CustomButton";
+
 const CreateFolderWrapper = styled.div`
-  display: flex;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  align-items: center;
-  justify-content: flex-end;
-  button,
+  display: inline-block;
+  margin: 0 2px;
   input {
     font-size: 0.7rem;
     margin: 0 2px;
@@ -17,9 +15,9 @@ const CreateFolderWrapper = styled.div`
   .container {
     display: flex;
     align-items: center;
-    background: gainsboro;
+    // background: gainsboro;
     border-radius: 2px;
-    padding: 5px 10px;
+    padding: 0px 10px;
     input {
       width: 100px;
     }
@@ -35,43 +33,39 @@ const CreateFolder = ({ path, addItem }) => {
     addItem({
       itemType: "folder",
       name: name,
-      parentId: path.length && path[path.length - 1]["id"]
+      parentId: getNodeId(path)
     });
     setInputBoxVisibility(false);
     setFolderName("");
   };
 
   return (
-    <div>
-      <CreateFolderWrapper>
-        {inputBoxVisibility ? (
-          <div className="container">
-            <Input
-              size="small"
-              value={folderName}
-              autoFocus
-              placeholder="Folder Name"
-              onChange={({ target: { value } }) => setFolderName(value)}
-              onPressEnter={createNewFolder}
-            />
-            <Button size="small" onClick={() => setInputBoxVisibility(false)}>
-              Cancel
-            </Button>
-            <Button size="small" onClick={createNewFolder}>
-              Create
-            </Button>
-          </div>
-        ) : (
-          <Button
+    <CreateFolderWrapper>
+      {inputBoxVisibility ? (
+        <div className="container">
+          <Input
             size="small"
-            onClick={() => setInputBoxVisibility(prev => !prev)}
-          >
-            New Folder
-            <Icon type="folder-add" />
-          </Button>
-        )}
-      </CreateFolderWrapper>
-    </div>
+            value={folderName}
+            autoFocus
+            placeholder="Folder Name"
+            onChange={({ target: { value } }) => setFolderName(value)}
+            onPressEnter={createNewFolder}
+          />
+          <CustomButton onClick={() => setInputBoxVisibility(false)}>
+            Cancel
+          </CustomButton>
+          <CustomButton onClick={createNewFolder}>Create</CustomButton>
+        </div>
+      ) : (
+        <CustomButton
+          size="small"
+          onClick={() => setInputBoxVisibility(prev => !prev)}
+        >
+          New Folder
+          <Icon type="folder-add" />
+        </CustomButton>
+      )}
+    </CreateFolderWrapper>
   );
 };
 
