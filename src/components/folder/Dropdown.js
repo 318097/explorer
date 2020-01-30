@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useEffect, useRef, Fragment } from "react";
 import styled from "styled-components";
 import { Icon, Popconfirm } from "antd";
 
@@ -33,7 +33,20 @@ const DropdownContent = styled.div`
 `;
 
 const Dropdown = ({ renameFolder, handleDelete }) => {
+  const dropdownRef = useRef(null);
   const [showDropdown, setShowDropdown] = useState(false);
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [showDropdown]);
+
+  const handleClickOutside = event => {
+    if (showDropdown) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target))
+        setShowDropdown(false);
+    }
+  };
 
   const handleRename = () => {
     setShowDropdown(false);
@@ -54,7 +67,10 @@ const Dropdown = ({ renameFolder, handleDelete }) => {
     <Fragment>
       <DropdownIcon type="more" onClick={handleDropdownClick} />
       {showDropdown && (
-        <DropdownContent onClick={event => event.stopPropagation()}>
+        <DropdownContent
+          ref={dropdownRef}
+          onClick={event => event.stopPropagation()}
+        >
           <span>
             <Icon onClick={handleRename} type="edit" />
             Rename
