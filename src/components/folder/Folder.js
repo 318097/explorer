@@ -13,22 +13,24 @@ const adjustNamePosition = css`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid #ccc;
-  height: 60px;
-  width: 60px;
-  padding: 1px 0;
+  border: 2px solid #424242;
+  height: 70px;
+  width: 70px;
+  padding: 0;
   display: inline-block;
   margin: 2px;
+  border-radius: 2px;
   cursor: pointer;
   transition: all 0.5s;
   position: relative;
+  background: white;
   &:hover {
-    background: lightgrey;
+    background: #807f7f7a;
   }
   .icon-wrapper {
     text-align: center;
     .icon {
-      font-size: 2.5rem;
+      font-size: 3rem;
     }
   }
   .filename {
@@ -36,12 +38,14 @@ const Wrapper = styled.div`
     padding: 0 2px;
     text-align: center;
     word-break: break-word;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     line-height: 10px;
     ${({ fileName }) => fileName.length > 10 && adjustNamePosition};
   }
   .rename-folder-input {
-    padding: 2px;
+    padding: 1px 2px;
+    position: relative;
+    bottom: 3px;
     margin: 0;
     background: #ececec;
     border: none;

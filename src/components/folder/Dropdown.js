@@ -13,15 +13,14 @@ const DropdownIcon = styled(Icon)`
 const DropdownContent = styled.div`
     display: flex;
     width: 100%;
-    flex-direction: row;
+    flex-direction: column;
+    padding: 5px;
     position: absolute;
-    background: #e8e8e8;
-    padding: 2px 10px;
+    background: #4e4c4c;
     right: 0;
-    left: 0;
     top: 0;
     & > * {
-      margin: 1px;
+      margin: 2px;
     }
   }
 `;

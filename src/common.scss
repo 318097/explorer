@@ -6,3 +6,16 @@
   padding: 5px;
   width: 100%;
 }
+
+.underline {
+  position: relative;
+  &:after {
+    position: absolute;
+    content: "";
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: rgb(90, 90, 90);
+  }
+}

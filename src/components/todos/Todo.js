@@ -23,7 +23,8 @@ const TodoWrapper = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    background: ${({ status }) => (status === "done" ? "green" : "lightgrey")};
+    background: ${({ status }) =>
+      status === "done" ? "lightgreen" : "lightgrey"};
   }
   .name {
     padding: 3px 10px;
