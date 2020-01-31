@@ -8,4 +8,6 @@ const updateItem = data => ({ type: constants.UPDATE_ITEM, payload: data });
 
 const deleteItem = fileId => ({ type: constants.DELETE_ITEM, payload: fileId });
 
-export { setPath, addItem, updateItem, deleteItem };
+const copyItem = data => ({ type: constants.COPY_ITEM, payload: data });
+
+export { setPath, addItem, updateItem, deleteItem, copyItem };

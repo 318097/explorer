@@ -71,8 +71,8 @@ const Dropdown = ({ renameFolder, handleDelete }) => {
           ref={dropdownRef}
           onClick={event => event.stopPropagation()}
         >
-          <span>
-            <Icon onClick={handleRename} type="edit" />
+          <span onClick={handleRename}>
+            <Icon type="edit" />
             Rename
           </span>
           <Popconfirm

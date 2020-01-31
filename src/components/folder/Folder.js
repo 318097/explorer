@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import { Icon } from "antd";
+import { Icon, Checkbox } from "antd";
 
 import Dropdown from "./Dropdown";
 
@@ -10,7 +10,7 @@ const adjustNamePosition = css`
   font-size: 0.7rem;
 `;
 
-const Wrapper = styled.div`
+const StyledFolder = styled.div`
   display: flex;
   flex-direction: column;
   border: 2px solid #424242;
@@ -52,12 +52,23 @@ const Wrapper = styled.div`
     width: 100%;
     font-size: 0.8rem;
   }
+  .checkbox {
+    position: absolute;
+    top: 0px;
+    left: 2px;
+  }
 `;
 
 const parseFileName = name =>
   name.length > 18 ? name.slice(0, 18) + ".." : name;
 
-const Folder = ({ file, navigate, updateItem, deleteItem }) => {
+const Folder = ({
+  file,
+  navigate,
+  updateItem,
+  deleteItem,
+  addFolderToSelection
+}) => {
   const [renameFolderStatus, setRenameFolderStatus] = useState(false);
   const [name, setName] = useState("");
 
@@ -79,8 +90,10 @@ const Folder = ({ file, navigate, updateItem, deleteItem }) => {
 
   const handleDelete = () => deleteItem(file.id);
 
+  const handleSelection = ({ target: { checked } }) =>
+    addFolderToSelection(checked ? "add" : "remove", file.id);
   return (
-    <Wrapper fileName={file.name} onClick={navigate(file.id)}>
+    <StyledFolder fileName={file.name} onClick={navigate(file.id)}>
       <div className="icon-wrapper">
         <Icon className="icon" type="folder" />
       </div>
@@ -97,8 +110,13 @@ const Folder = ({ file, navigate, updateItem, deleteItem }) => {
       ) : (
         <div className="filename">{parseFileName(file.name)}</div>
       )}
+      <Checkbox
+        className="checkbox"
+        onChange={handleSelection}
+        onClick={event => event.stopPropagation()}
+      />
       <Dropdown handleDelete={handleDelete} renameFolder={renameFolder} />
-    </Wrapper>
+    </StyledFolder>
   );
 };
 

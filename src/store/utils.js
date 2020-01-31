@@ -79,4 +79,32 @@ const deleteItem = (fileId, rootStructure) => {
   return rootStructure;
 };
 
-export { findFilesInPath, generatePath, addItem, deleteItem };
+const copyItem = (targetFileId, filesToCopy, rootStructure) => {
+  const recursiveCreateFiles = (files, parentId) => {
+    return files.map(fileId => {
+      const fileData = { ...rootStructure[fileId] };
+      const id = uuid();
+      if (fileData.type === "folder") {
+        let childNodes = [];
+        if (fileData.children.length)
+          childNodes = recursiveCreateFiles(fileData.children, id);
+
+        rootStructure[id] = {
+          ...fileData,
+          parent: parentId,
+          children: [...childNodes]
+        };
+      } else {
+        rootStructure[id] = { ...fileData, id, parent: parentId };
+      }
+      return id;
+    });
+  };
+  const copiedContent = recursiveCreateFiles(filesToCopy, targetFileId);
+
+  if (targetFileId) rootStructure[targetFileId].children.push(...copiedContent);
+
+  return rootStructure;
+};
+
+export { findFilesInPath, generatePath, addItem, deleteItem, copyItem };

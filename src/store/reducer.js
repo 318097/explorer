@@ -1,5 +1,5 @@
 import * as constants from "./constants";
-import { generatePath, addItem, deleteItem } from "./utils";
+import { generatePath, addItem, deleteItem, copyItem } from "./utils";
 
 const initialState = {
   path: [],
@@ -74,6 +74,16 @@ const reducer = (state = initialState, action) => {
         ...state.rootStructure
       });
 
+      return {
+        ...state,
+        rootStructure: updatedRootStructure
+      };
+    }
+    case constants.COPY_ITEM: {
+      const { files, target } = action.payload;
+      const updatedRootStructure = copyItem(target, files, {
+        ...state.rootStructure
+      });
       return {
         ...state,
         rootStructure: updatedRootStructure
